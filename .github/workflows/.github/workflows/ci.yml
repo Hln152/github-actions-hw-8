@@ -1,0 +1,30 @@
+name: CI Pipeline
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Clone the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Install Java
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Step 3: Build project and download dependencies
+      - name: Build with Maven
+        run: mvn clean install
+
+      # Step 4: Run unit tests
+      - name: Run tests
+        run: mvn test
+``
